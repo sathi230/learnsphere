@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+//import API_BASE_URL from "./config"; 
+
 import "./Login.css";
+const API_BASE_URL = "https://learnsphere-backend-3-6nn6.onrender.com";
 
 function Login() {
   const [isRegister, setIsRegister] = useState(false);
@@ -19,7 +22,7 @@ function Login() {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/login",
+        `${API_BASE_URL}/api/login`,
         { email, password }
       );
 
@@ -50,7 +53,7 @@ function Login() {
   const sendOtp = async () => {
     try {
       await axios.post(
-        "http://localhost:8080/api/send-otp",
+        `${API_BASE_URL}/api/send-otp`,
         null,
         { params: { mobile } }
       );
@@ -66,7 +69,7 @@ function Login() {
   const verifyOtp = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/verify-otp",
+        `${API_BASE_URL}/api/verify-otp`,
         null,
         { params: { mobile, otp } }
       );
@@ -92,7 +95,7 @@ function Login() {
   const handleRegister = async () => {
     try {
       await axios.post(
-        "http://localhost:8080/api/register",
+        `${API_BASE_URL}/api/register`,
         { name, email, password, role }
       );
 

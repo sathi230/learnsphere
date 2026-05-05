@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+//import API_BASE_URL from "./config";
 import "./StudentDashboard.css";
+
 import {
   FaTachometerAlt,
   FaBook,
@@ -13,6 +15,8 @@ import {
   FaPlus,
   FaTimes,
 } from "react-icons/fa";
+const API_BASE_URL = "https://learnsphere-backend-3-6nn6.onrender.com";
+
 
 const userEmail = localStorage.getItem("userEmail") || "";
 const userRole = localStorage.getItem("userRole") || "";
@@ -47,7 +51,7 @@ function StudentDashboard() {
 
   const fetchCourses = () => {
     axios
-      .get("http://localhost:8080/api/student/courses")
+      .get(`${API_BASE_URL}/api/student/courses`)
       .then((res) => setCourses(res.data))
       .catch((err) => console.error(err));
   };
@@ -56,7 +60,7 @@ function StudentDashboard() {
     try {
       const studentId = localStorage.getItem("userId");
       const res = await axios.get(
-        `http://localhost:8080/api/student/${studentId}/courses`
+        `${API_BASE_URL}/api/student/${studentId}/courses`
       );
       setMyCourses(res.data || []);
     } catch (error) {
@@ -68,7 +72,7 @@ function StudentDashboard() {
   const fetchLessons = async (courseId) => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/lessons/course/${courseId}`
+        `${API_BASE_URL}/api/lessons/course/${courseId}`
       );
 
       setLessons((prev) => ({

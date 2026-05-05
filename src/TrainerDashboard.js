@@ -3,7 +3,9 @@ import axios from "axios";
 import { Card, Input, Button, Collapse, List } from "antd";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 import "antd/dist/reset.css";
+//import API_BASE_URL from "./config";
 import "./TrainerDashboard.css";
+const API_BASE_URL = "https://learnsphere-backend-3-6nn6.onrender.com";
 
 const { Panel } = Collapse;
 
@@ -22,7 +24,7 @@ function TrainerDashboard() {
 
   const fetchCourses = () => {
     axios
-      .get(`http://localhost:8080/api/trainer/my-courses?email=${userEmail}`)
+      .get(`${API_BASE_URL}/api/trainer/my-courses?email=${userEmail}`)
       .then(res => setCourses(res.data))
       .catch(err => console.error(err));
   };
@@ -30,7 +32,7 @@ function TrainerDashboard() {
   const handleAddCourse = () => {
     if (!newCourse.courseName || !newCourse.coursePrice) return;
 
-    axios.post("http://localhost:8080/api/trainer/add-course", {
+    axios.post(`${API_BASE_URL}/api/trainer/add-course`, {
       courseName: newCourse.courseName,
       coursePrice: newCourse.coursePrice,
       trainerEmail: userEmail
@@ -42,7 +44,7 @@ function TrainerDashboard() {
 
   const fetchLessons = (courseId) => {
     axios
-      .get(`http://localhost:8080/api/trainer/lessons/${courseId}`)
+      .get(`${API_BASE_URL}/api/trainer/lessons/${courseId}`)
       .then(res => setLessons(prev => ({ ...prev, [courseId]: res.data })))
       .catch(err => console.error(err));
   };
@@ -52,7 +54,7 @@ function TrainerDashboard() {
     if (!lessonData?.lessonName || !lessonData?.lessonTopic) return;
 
     try {
-      const res = await axios.post("http://localhost:8080/api/trainer/add-lesson", {
+      const res = await axios.post(`${API_BASE_URL}/api/trainer/add-lesson`, {
         lessonName: lessonData.lessonName,
         lessonTopic: lessonData.lessonTopic,
         lessonVideoLink: lessonData.lessonVideoLink,

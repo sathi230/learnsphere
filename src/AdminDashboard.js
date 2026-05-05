@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./AdminDashboard.css";
+const API_BASE_URL = "https://learnsphere-backend-3-6nn6.onrender.com";
 
 function AdminDashboard() {
   const [collapsed, setCollapsed] = useState(false);
@@ -26,9 +27,9 @@ function AdminDashboard() {
   // ===================== Fetch summary data =====================
   const fetchDashboardData = async () => {
     try {
-      const courseRes = await fetch("http://localhost:8080/api/admin/totalCourses");
-      const studentRes = await fetch("http://localhost:8080/api/admin/totalStudents");
-      const trainerRes = await fetch("http://localhost:8080/api/admin/totalTrainers");
+      const courseRes = await fetch(`${API_BASE_URL}/api/admin/totalCourses`);
+      const studentRes = await fetch(`${API_BASE_URL}/api/admin/totalStudents`);
+      const trainerRes = await fetch(`${API_BASE_URL}/api/admin/totalTrainers`);
 
       const totalCourses = await courseRes.json();
       const totalStudents = await studentRes.json();
@@ -45,7 +46,7 @@ function AdminDashboard() {
   // ===================== Fetch lists =====================
   const fetchStudents = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/admin/students");
+      const res = await fetch(`${API_BASE_URL}/api/admin/students`);
       const data = await res.json();
       setStudents(data || []); // <-- Always default to array
     } catch (error) {
@@ -55,7 +56,7 @@ function AdminDashboard() {
 
   const fetchCourses = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/admin/courses");
+      const res = await fetch(`${API_BASE_URL}/api/admin/courses`);
       const data = await res.json();
       setCourses(data || []); // <-- Always default to array
     } catch (error) {
@@ -65,7 +66,7 @@ function AdminDashboard() {
 
   const fetchTrainers = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/admin/trainers"); // <-- Add backend API
+      const res = await fetch(`${API_BASE_URL}/api/admin/trainers`); // <-- Add backend API
       const data = await res.json();
       setTrainers(data || []); // <-- Always default to array
     } catch (error) {
@@ -82,7 +83,7 @@ function AdminDashboard() {
         mobile: studentMobile // send mobile to backend
         }; // <-- safety check
     try {
-      const res = await fetch("http://localhost:8080/api/admin/assign-course", {
+      const res = await fetch(`${API_BASE_URL}/api/admin/assign-course`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
